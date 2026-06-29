@@ -1,0 +1,2 @@
+WARNING 2026-06-29 16:12:03,073 todos.exceptions API 400 in view TodoViewSet: {'title': [ErrorDetail(string='This field may not be blank.', code='invalid')]}
+WARNING 2026-06-29 16:12:03,074 django.request Bad Request: /api/todos/

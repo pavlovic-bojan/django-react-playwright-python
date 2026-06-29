@@ -1,2 +1,0 @@
-ERROR 2026-06-29 16:03:57,015 todos.exceptions Unhandled exception in view unknown: something unexpected
-NoneType: None
