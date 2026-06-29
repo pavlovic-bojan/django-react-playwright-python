@@ -1,0 +1,16 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+
+# Django
+db.sqlite3
+db.sqlite3-journal
+staticfiles/
+/spa/
+
+# Tooling caches
+.pytest_cache/
+.ruff_cache/
+.allure/
+allure-results/

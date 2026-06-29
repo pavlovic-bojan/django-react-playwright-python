@@ -1,0 +1,161 @@
+# =============================================================================
+# Todo App — root .gitignore (monorepo: apps/server, apps/client, apps/tests)
+# Goal: ignore generated/build/cache/secret artifacts from every folder.
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# Secrets & environment
+# -----------------------------------------------------------------------------
+.env
+.env.*
+!.env.example
+!.env.sample
+*.pem
+*.key
+secrets.json
+
+# -----------------------------------------------------------------------------
+# Python — apps/server (Django + DRF) & apps/tests (Playwright/pytest)
+# -----------------------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+.python-version
+
+# Packaging / build
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+*.egg-info/
+*.egg
+pip-wheel-metadata/
+wheels/
+
+# Test / lint / type-check caches & coverage
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.dmypy.json
+.pyre/
+.pytype/
+.cache/
+.coverage
+.coverage.*
+coverage.xml
+nosetests.xml
+htmlcov/
+.tox/
+.nox/
+.hypothesis/
+
+# Django runtime artifacts
+*.sqlite3
+*.sqlite3-journal
+db.sqlite3
+db.sqlite3-journal
+*.log
+local_settings.py
+/staticfiles/
+/static_root/
+/media/
+
+# Built SPA copied into the server image at build time (generated from apps/client)
+apps/server/spa/
+
+# -----------------------------------------------------------------------------
+# Node / TypeScript — apps/client (React + Vite + Vitest)
+# -----------------------------------------------------------------------------
+node_modules/
+.pnp
+.pnp.js
+
+# Build output
+apps/client/dist/
+dist/
+dist-ssr/
+build/
+
+# Vite / bundler caches
+.vite/
+*.local
+
+# Lint / test caches & coverage (client)
+.eslintcache
+.oxlintcache
+coverage/
+*.lcov
+.vitest/
+
+# Logs from package managers
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+.npm/
+.yarn/cache/
+.yarn/unplugged/
+
+# -----------------------------------------------------------------------------
+# E2E / test & coverage reports — apps/tests + Allure (any depth)
+# -----------------------------------------------------------------------------
+allure-results/
+allure-report/
+**/allure-results/
+**/allure-report/
+.allure/
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/
+
+# -----------------------------------------------------------------------------
+# Docker (local overrides only; keep tracked Dockerfile/compose)
+# -----------------------------------------------------------------------------
+docker-compose.override.yml
+docker-compose.*.local.yml
+
+# -----------------------------------------------------------------------------
+# OS / editor / IDE noise
+# -----------------------------------------------------------------------------
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+
+# JetBrains
+.idea/
+*.iml
+*.iws
+# Visual Studio Code (keep shared recommendations, ignore personal settings)
+.vscode/*
+!.vscode/extensions.json
+!.vscode/launch.json
+# Vim / Emacs / misc
+*.swp
+*.swo
+*.bak
+*.tmp
+*.orig

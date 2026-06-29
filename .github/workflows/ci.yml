@@ -1,0 +1,59 @@
+name: CI
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+
+# Allow the Allure-to-Pages publish step to push.
+permissions:
+  contents: write
+
+jobs:
+  # ---------------------------------------------------------------------
+  # Build the single image, then run the whole pipeline inside it:
+  # migrate -> seed 10 todos -> backend unit+integration -> playwright ui+api
+  # -> generate Allure report. Client unit/component (Vitest) results are baked
+  # in during the image build and merged into the same report.
+  # ---------------------------------------------------------------------
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build the app image
+        run: docker build -t todo-app:ci .
+
+      - name: Run the full pipeline in the container
+        run: |
+          mkdir -p allure-results allure-report
+          docker run --rm \
+            -v "$PWD/allure-results:/allure-results" \
+            -v "$PWD/allure-report:/allure-report" \
+            todo-app:ci
+
+      - name: Upload Allure results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-results
+          path: allure-results
+          if-no-files-found: warn
+
+      - name: Upload Allure report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-report
+          path: allure-report
+          if-no-files-found: warn
+
+      # Publish the rendered report to GitHub Pages (main only).
+      # Enable Pages for the repo (Settings -> Pages -> source: gh-pages) to use this.
+      - name: Publish Allure report to GitHub Pages
+        if: always() && github.ref == 'refs/heads/main'
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./allure-report
+          destination_dir: allure

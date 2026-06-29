@@ -1,0 +1,28 @@
+# VCS / editor
+.git
+.gitignore
+.vscode
+.idea
+
+# Python
+**/__pycache__/
+**/*.pyc
+**/.venv/
+**/.pytest_cache/
+**/.ruff_cache/
+apps/server/db.sqlite3
+
+# Node / client
+apps/client/node_modules/
+apps/client/dist/
+
+# Test / report output (generated fresh inside the image / at run time)
+allure-results/
+allure-report/
+**/allure-results/
+**/test-results/
+**/.cache/
+
+# Docs / claude config not needed in the image
+.claude/
+*.md

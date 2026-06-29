@@ -1,0 +1,18 @@
+# Convenience wrapper around the single app image.
+#
+#   docker compose up --build            # build + run the whole pipeline once
+#
+# Test results land in ./allure-results and the rendered report in ./allure-report
+# on the host. The container exits when the pipeline finishes.
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: todo-app:latest
+    container_name: todo-app
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./allure-results:/allure-results
+      - ./allure-report:/allure-report
