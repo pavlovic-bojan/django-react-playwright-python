@@ -14,7 +14,7 @@ from schemas.todo_schemas import HEALTH_SCHEMA
 @allure.story("Health")
 @allure.severity(allure.severity_level.BLOCKER)
 @pytest.mark.api
-@allure.title("GET /api/health/ returns 200 with {status: ok} matching the schema")
+@allure.title("GET /api/health/ returns 200 with {{status: ok}} matching the schema")
 def test_health_endpoint_returns_200_and_ok(api_context):
     with allure.step("GET /api/health/"):
         res = api_context.get("health/")
