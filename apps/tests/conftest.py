@@ -11,10 +11,12 @@ Provides:
 * ``unique_suffix``     — per-test unique token so titles never collide with the
                           ~10 seeded demo todos or with other tests.
 """
+
 import os
 import sys
 import uuid
 
+import allure
 import pytest
 import requests
 
@@ -22,6 +24,24 @@ import requests
 sys.path.insert(0, os.path.dirname(__file__))
 
 from config import API_URL, BASE_URL  # noqa: E402
+
+
+@pytest.fixture(autouse=True)
+def _allure_category(request: pytest.FixtureRequest) -> None:
+    """Group each test under a top-level Allure category by its directory.
+
+    Drives both the "Suites" tab (parentSuite) and the "Behaviors" tab (epic) so a
+    first-time reader sees "QA UI e2e tests" and "QA API tests" rather than a flat list.
+    """
+    path = str(request.node.fspath).replace("\\", "/")
+    if "/tests/ui/" in path:
+        category = "QA UI e2e tests"
+    elif "/tests/api/" in path:
+        category = "QA API tests"
+    else:
+        return
+    allure.dynamic.parent_suite(category)
+    allure.dynamic.epic(category)
 
 
 @pytest.fixture(scope="session")
