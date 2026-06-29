@@ -1,2 +1,0 @@
-ERROR 2026-06-29 15:44:31,085 todos.exceptions Unhandled exception in view unknown: boom
-NoneType: None
