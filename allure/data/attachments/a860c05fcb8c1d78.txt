@@ -1,0 +1,2 @@
+WARNING  todos.exceptions:exceptions.py:47 API 404 in view TodoViewSet: No Todo matches the given query.
+WARNING  django.request:log.py:253 Not Found: /api/todos/999999/

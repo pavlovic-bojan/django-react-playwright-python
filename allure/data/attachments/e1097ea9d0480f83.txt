@@ -1,0 +1,2 @@
+WARNING  todos.exceptions:exceptions.py:47 API 400 in view TodoViewSet: {'title': [ErrorDetail(string='This field may not be blank.', code='invalid')]}
+WARNING  django.request:log.py:253 Bad Request: /api/todos/1/

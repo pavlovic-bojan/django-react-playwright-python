@@ -1,0 +1,2 @@
+ERROR    todos.exceptions:exceptions.py:40 Unhandled exception in view unknown: boom
+NoneType: None
