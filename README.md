@@ -1,9 +1,9 @@
 # Todo App - Full-Stack Monorepo with End-to-End Test Framework
 
-A small Todo application built as a **reference architecture** for a complete,
+A small Todo application built as a **reference architecture** for a complete, A 
 thoroughly tested full-stack project. It pairs a Django + DRF backend, a React +
 TypeScript frontend, and a Playwright (Python) end-to-end suite, then ships all three in
-a **single Docker image** that runs the entire test pipeline and publishes an **Allure**
+a **single Docker image** that runs the entire test pipeline and publishes an **Allure**report
 report.
 
 The point of the project is not the Todo domain - it is the surrounding engineering:
@@ -17,9 +17,9 @@ and one reproducible command that builds, migrates, seeds, tests, and reports.
 
 ```
                        ┌──────────────────────────────────────────┐
-   Browser  ──────────▶│  Django (gunicorn) on :8000              │
-                       │   ├─ /          → React SPA (WhiteNoise)  │
-                       │   └─ /api/      → DRF REST API            │
+   Browser ─────────▶  │  Django (gunicorn) on:8000               │
+                       │   ├─ /          → React SPA (WhiteNoise) │
+                       │   └─ /api/      → DRF REST API           │
                        └──────────────────────────────────────────┘
                                           ▲
    Playwright (Python)  ──── UI + API ────┘   same-origin in the image
@@ -66,8 +66,8 @@ Each application is documented in depth in its own README - start here, then fol
 links:
 
 - **[apps/server/README.md](apps/server/README.md)** - Django + DRF API, layered
-  architecture (selectors / services / exceptions), migrations, the `seed_todos`
-  command, and 100%-covered pytest suite.
+  architecture (selectors/services/exceptions), migrations, the `seed_todos`
+  command, and a 100%-covered pytest suite.
 - **[apps/client/README.md](apps/client/README.md)** - React + TypeScript SPA,
   schemas-as-source-of-truth, the typed fetch client, TanStack Query hooks, and a
   100%-covered Vitest suite (with MSW).
@@ -117,7 +117,7 @@ Running the image executes [`docker/entrypoint.sh`](docker/entrypoint.sh):
 
 1. `python manage.py migrate`
 2. `python manage.py seed_todos --count 10`
-3. start gunicorn and wait until `/api/health/` is healthy
+3. Start gunicorn and wait until `/api/health/` is healthy
 4. **backend** unit + integration tests → `pytest` (`apps/server`)
 5. **E2E** UI + API tests → `pytest` (`apps/tests`)
 6. `allure generate` → one unified report
