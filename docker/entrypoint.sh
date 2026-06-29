@@ -61,6 +61,39 @@ BASE_URL="http://localhost:8000" \
 API_URL="http://localhost:8000/api" \
   pytest -q -p no:django --alluredir="$ALLURE_RESULTS" || rc=1
 
+echo "==> Normalising Allure suite labels (one parentSuite per test)"
+# allure-vitest adds a second parentSuite (the describe block name) on top of the
+# category we set, which scrambles the "Suites" tab. Keep a single parentSuite equal
+# to the test's category (its epic) and demote the framework's auto value to a suite.
+python - "$ALLURE_RESULTS" <<'PYEOF' || echo "!! label normalisation skipped"
+import glob, json, os, sys
+
+results_dir = sys.argv[1]
+for path in glob.glob(os.path.join(results_dir, "*-result.json")):
+    try:
+        with open(path, encoding="utf-8") as fh:
+            data = json.load(fh)
+    except (ValueError, OSError):
+        continue
+    labels = data.get("labels", [])
+    epics = [l["value"] for l in labels if l.get("name") == "epic"]
+    if not epics:
+        continue
+    category = epics[0]
+    extras = [
+        l["value"]
+        for l in labels
+        if l.get("name") == "parentSuite" and l.get("value") != category
+    ]
+    labels = [l for l in labels if l.get("name") != "parentSuite"]
+    labels.append({"name": "parentSuite", "value": category})
+    if extras and not any(l.get("name") == "suite" for l in labels):
+        labels.append({"name": "suite", "value": extras[0]})
+    data["labels"] = labels
+    with open(path, "w", encoding="utf-8") as fh:
+        json.dump(data, fh)
+PYEOF
+
 echo "==> [6/6] Generate Allure report"
 allure generate "$ALLURE_RESULTS" -o "$ALLURE_REPORT" --clean || \
   echo "!! allure report generation failed (results still available)"

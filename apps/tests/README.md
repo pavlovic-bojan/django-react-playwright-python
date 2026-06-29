@@ -1,5 +1,7 @@
 # apps/tests - Playwright (Python) E2E & API suite
 
+> 📊 **Live Allure test report:** https://pavlovic-bojan.github.io/django-react-playwright-python/allure/
+
 The end-to-end test suite for the Todo app, written with Playwright and `pytest`. UI
 tests drive a real browser through a **Page Object Model**; API tests hit the REST
 endpoints directly and validate every response against a **JSON Schema**.

@@ -1,5 +1,7 @@
 # Todo App - Full-Stack Monorepo with End-to-End Test Framework
 
+> 📊 **Live Allure test report:** https://pavlovic-bojan.github.io/django-react-playwright-python/allure/
+
 A small Todo application built as a **reference architecture** for a complete, A 
 thoroughly tested full-stack project. It pairs a Django + DRF backend, a React +
 TypeScript frontend, and a Playwright (Python) end-to-end suite, then ships all three in
