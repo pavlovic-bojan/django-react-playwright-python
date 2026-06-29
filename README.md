@@ -19,7 +19,7 @@ and one reproducible command that builds, migrates, seeds, tests, and reports.
 
 ```
                        ┌──────────────────────────────────────────┐
-   Browser ─────────▶  │  Django (gunicorn) on:8000               │
+   Browser ─────────▶ │  Django (gunicorn) on:8000               │
                        │   ├─ /          → React SPA (WhiteNoise) │
                        │   └─ /api/      → DRF REST API           │
                        └──────────────────────────────────────────┘
